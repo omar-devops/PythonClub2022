@@ -2,8 +2,8 @@
 {% block content %}
 <h2>Members</h2>
 <ul>
-    {% for m in user_list%}
-        <li>{{ m.username }}</li>
+    {% for u in user_list %}
+        <li>{{ u.userId }}</li>
     {% endfor %}
 </ul>
 
