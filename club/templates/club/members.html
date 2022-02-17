@@ -3,7 +3,7 @@
 <h2>Members</h2>
 <ul>
     {% for u in user_list %}
-        <li>{{ u.userId }}</li>
+        <li><a href="{% url 'meetings' id=u.id %}"> {{ u.userId }} </a></li>
     {% endfor %}
 </ul>
 
