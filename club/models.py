@@ -17,9 +17,6 @@ class Meeting(models.Model):
     meetingLocation = models.TextField()
     meetingTime=models.DurationField(null=True)
     meetingAgenda = models.TextField()
-
-    def __str__(self):
-        return self.meetingTitle
     
     class Meta:
         db_table='Meeting'
@@ -59,6 +56,13 @@ class Event(models.Model):
     eventUserId = models.ForeignKey(User, on_delete=models.CASCADE)
     url = models.URLField()
     eventDesc = models.TextField()
+
+    def certificate(self):
+        self.cert = self.eventTitle
+        return self.cert
+
+    def __str__(self):
+        return self.meetingTitle
 
     def __str__(self):
         return self.eventTitle
