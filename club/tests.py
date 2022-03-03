@@ -1,7 +1,10 @@
 from django.test import TestCase
-from django.contrib.auth.models import User
 from .models import Club, Meeting, Event, Resource, Minutes
+from  .forms import EventForm
+from django.contrib.auth.models import User
+from pythonclub2022.club.forms import EventForm
 import datetime
+from django.urls import revers
 
 # Create your tests here.
 class ClubTest(TestCase):
@@ -27,3 +30,17 @@ class EventTest(TestCase):
         cert = self.event.eventTitle
         self.assertEqual(self.event.certificate(), cert)
     
+class NewEventForm(TestCase):
+    def test_eventform_is_valid(self):
+        data = {
+            {'eventtitle':'python', 'eventResource': 'python club', 'eventUserId': 'omurbek', 'eventDate':'2022-3-1', 'eventLocation': 'Seattle', 'eventDesc': 'Intro to python'}
+            } 
+        form=EventForm(data)
+        self.assertTrue(form.is_valid())
+    def test_Eventform_invalid(self):
+         data = {
+            {'eventtitle':'python', 'eventResource': 'python club', 'eventUserId': 'omurbek', 'eventDate':'2022-3-1', 'eventLocation': 'Seattle', 'eventDesc': 'Intro to python'}
+            } 
+        form=EventForm(data)
+        self.assertFalse(form.is_valid())
+        
