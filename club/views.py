@@ -1,9 +1,9 @@
 from collections import UserList
-import re
 from django.shortcuts import get_object_or_404, render
 from .models import Club, Meeting, Event, Resource, Minutes
 from django.urls import reverse_lazy
 from .forms import EventForm
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 def index(request):
@@ -17,6 +17,7 @@ def meetings(request, id):
     eventResource = get_object_or_404(Event, pk=id)
     return render(request, 'club/meetings.html', {'eventResource': eventResource})
 
+@login_required
 def newEvent(request):
     form=EventForm
 
@@ -30,3 +31,9 @@ def newEvent(request):
     else:
         form=EventForm()
     return render(request,'club/newevent.html', {'form': form})
+
+def  loginmessage(request):
+        return render(request, 'club/loginmessage.html')
+    
+def  logoutmessage(request):
+        return render(request, 'club/logoutmessage.html')
