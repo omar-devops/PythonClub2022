@@ -4,7 +4,7 @@ from  .forms import EventForm
 from django.contrib.auth.models import User
 from pythonclub2022.club.forms import EventForm
 import datetime
-from django.urls import revers
+from django.urls import reverse_lazy, reverse
 
 # Create your tests here.
 class ClubTest(TestCase):
@@ -37,10 +37,20 @@ class NewEventForm(TestCase):
             } 
         form=EventForm(data)
         self.assertTrue(form.is_valid())
+    '''
     def test_Eventform_invalid(self):
          data = {
             {'eventtitle':'python', 'eventResource': 'python club', 'eventUserId': 'omurbek', 'eventDate':'2022-3-1', 'eventLocation': 'Seattle', 'eventDesc': 'Intro to python'}
             } 
         form=EventForm(data)
         self.assertFalse(form.is_valid())
-        
+    '''
+class New_Event_Authentication_Test(TestCase):
+    def setUp(self):
+        self.test_user = User.objects.create_user(username = 'testuser1', password='P@assword1')
+        self.type=Type.object.create(typename='python')
+        self.event=Event.object.create(eventTitle = 'C#', eventUserId = self.test_user, eventDesc='C# Training', eventDate='02/22/2022', eventLocation='Bellevue') 
+
+    def test_redirect_if_not_logged_in(self):
+        response=self.client.get(reverse('newevent'))
+        self.assertRedirects(response, '/account/login/?next=/club/newevent/')   
