@@ -37,14 +37,13 @@ class NewEventForm(TestCase):
             } 
         form=EventForm(data)
         self.assertTrue(form.is_valid())
-    '''
+
     def test_Eventform_invalid(self):
          data = {
             {'eventtitle':'python', 'eventResource': 'python club', 'eventUserId': 'omurbek', 'eventDate':'2022-3-1', 'eventLocation': 'Seattle', 'eventDesc': 'Intro to python'}
             } 
         form=EventForm(data)
         self.assertFalse(form.is_valid())
-    '''
 class New_Event_Authentication_Test(TestCase):
     def setUp(self):
         self.test_user = User.objects.create_user(username = 'testuser1', password='P@assword1')
